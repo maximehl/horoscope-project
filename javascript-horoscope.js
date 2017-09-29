@@ -95,7 +95,7 @@ HOROSCOPES = ["What you say may seem obvious to you, but will" +
     " remain where you are if it doesn’t seem right." +
     " However, make sure to keep safety and security" +
     " in mind."];
-CHECK_RETURNS = ["Sorry, your input is not a valid date.",
+CHECK_RETURNS = ["sorry, your input is not a valid date.",
     true,
     "aren't you a little young to be on the internet?",
     "please enter your year of birth.",
@@ -167,18 +167,16 @@ function determineChineseZodiac(year){
 }
 
 function checkData(day, month, year, nowDate){
-    if(MONTHS30DAYS.includes(month)&&day==31){
-        return 0;
-    }else if(document.getElementById("year").value==""){
+    if(document.getElementById("year").value==""){
         return 3;
-    }else if(month==1 && day>28){
-        return false;
     }else if((year+10)>=parseInt(nowDate.getFullYear())){
         if(year>parseInt(nowDate.getFullYear())){
             return 4;
         }else{
             return 2;
         }
+    }else if((MONTHS30DAYS.includes(month)&&day==31)||(month==1 && day>28)){
+        return 0;
     }else{
         return true;
     }
