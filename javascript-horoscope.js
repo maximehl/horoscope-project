@@ -95,43 +95,35 @@ HOROSCOPES = ["What you say may seem obvious to you, but will" +
     " remain where you are if it doesn’t seem right." +
     " However, make sure to keep safety and security" +
     " in mind."];
+CHECK_RETURNS = ["Sorry, your input is not a valid date.",
+    true,
+    "aren't you a little young to be on the internet?",
+    "please enter your year of birth.",
+    "predicting the future is our job, not yours."];
 
 function onSubmit(){
     clearPage();
     var day = parseInt(document.getElementById("day").value);
     var month = parseInt(document.getElementById("month").value);
     var year = parseInt(document.getElementById("year").value);
+    var name = document.getElementById("name").value;
+    var nowDate = new Date();
+    var birthday = checkBirthday(day, month, nowDate);
+    if (name==""){
+        name = "Anonymous";
+    }
     var sign;
-    var check = checkData(day, month, year);
+    var check = checkData(day, month, year, nowDate);
     if(check==true){
         sign = determineSign(day, month);
         document.getElementById("sign").innerHTML = SIGNS[sign];
-        determineHoroscope(sign);
+        determineHoroscope(sign, name, birthday);
         determineImage(sign);
         determineChineseZodiac(year);
-    }else if(check=="young"){
-        document.getElementById("horoscope").innerHTML = "Aren't you a little young to be on the internet?";
-    }else if(check == "no year"){
-        document.getElementById("horoscope").innerHTML = "Please enter your year of birth.";
-    }else if(check == "future"){
-        document.getElementById("horoscope").innerHTML = "Predicting the future is our job, not yours.";
     }else{
-        document.getElementById("horoscope").innerHTML = "Sorry, your input is not a valid date.";
+        document.getElementById("horoscope").innerHTML = "Dear " + name + ": " + CHECK_RETURNS[check];
     }
 }
-
-/*This function clears the page, which is important,
- * because the next date input may be invalid,
- * in which case, we don't want to leave a picture
- * or any text from the previous horoscope on the page.
- */
-function clearPage(){
-    document.getElementById("image").innerHTML = "";
-    document.getElementById("sign").innerHTML = "";
-    document.getElementById("horoscope").innerHTML = "";
-    document.getElementById("chinese zodiac").innerHTML = "";
-}
-
 
 function determineSign(day, month){
     if(day<=MONTH_CUTOFFS[month]){
@@ -145,8 +137,14 @@ function determineSign(day, month){
     }
 }
 
-function determineHoroscope(sign){
-    document.getElementById("horoscope").innerHTML = HOROSCOPES[sign];
+function determineHoroscope(sign, name, birthday){
+    var text = "our horoscope for today is: " + HOROSCOPES[sign];
+    if(birthday){
+        text = "Happy birthday, " + name + "! Y" + text;
+    }else{
+        text = name + ", y" + text;
+    }
+    document.getElementById("horoscope").innerHTML = text;
 }
 
 function determineImage(sign){
@@ -168,21 +166,40 @@ function determineChineseZodiac(year){
     document.getElementById("chinese zodiac").innerHTML = text;
 }
 
-function checkData(day, month, year){
-    var currentYear = parseInt(new Date().getFullYear());
+function checkData(day, month, year, nowDate){
     if(MONTHS30DAYS.includes(month)&&day==31){
-        return false;
+        return 0;
     }else if(document.getElementById("year").value==""){
-        return "no year";
+        return 3;
     }else if(month==1 && day>28){
         return false;
-    }else if((year+10)>=currentYear){
-        if(year>currentYear){
-            return "future";
+    }else if((year+10)>=parseInt(nowDate.getFullYear())){
+        if(year>parseInt(nowDate.getFullYear())){
+            return 4;
         }else{
-            return "young";
+            return 2;
         }
     }else{
         return true;
     }
+}
+
+function checkBirthday(day, month, nowDate){
+    if(month==nowDate.getMonth() && day==nowDate.getDate()){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/*This function clears the page, which is important,
+ * because the next date input may be invalid,
+ * in which case, we don't want to leave a picture
+ * or any text from the previous horoscope on the page.
+ */
+function clearPage(){
+    document.getElementById("image").innerHTML = "";
+    document.getElementById("sign").innerHTML = "";
+    document.getElementById("horoscope").innerHTML = "";
+    document.getElementById("chinese zodiac").innerHTML = "";
 }

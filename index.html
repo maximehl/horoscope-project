@@ -7,7 +7,8 @@
 </head>
 <body>
 
-<select id = "month" style="width:80px; margin-left: 65px; margin-top: 50px;">
+<div style="width:250px; text-align: center; margin-left: 50px; margin-top: 40px;">Please enter your date of birth.</div>
+<select id = "month" title="Month of birth" style="width:80px; margin-left: 65px; margin-top: 10px;">
     <option value="0">January</option>
     <option value="1">February</option>
     <option value="2">March</option>
@@ -21,7 +22,7 @@
     <option value="10">November</option>
     <option value="11">December</option>
 </select>
-<select id = "day" style="width:50px; margin-left: 5px;">
+<select id = "day" title="Day of birth" style="width:50px; margin-left: 5px;">
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -54,21 +55,26 @@
     <option value="30">30</option>
     <option value="31">31</option>
 </select>
-<input type ="text" id="year" value="" style="width:80px; margin-left: 5px;">
+<input type ="text" id="year" title="Year of birth" value="" style="width:80px; margin-left: 5px;">
+<br>
+<div style="width:250px; text-align: center; margin-left: 50px; margin-top: 35px;">Please enter your name:</div>
+<input type ="text" id="name" title="Your name" value="" style="width:200px; margin-top: 10px; margin-left: 75px;">
 
 <br>
 
-<button onclick="onSubmit()" style="width:70px; margin-left: 140px; margin-top: 30px;">Submit!</button>
+<button onclick="onSubmit()" style="width:70px; margin-left: 140px; margin-top: 35px;">Submit!</button>
 
 <br>
 
 <img id="image" src="" style="margin-top: 20px; margin-bottom: 20px; margin-left: 50px;">
 <br>
-<div id="sign" style="width:250px; text-align: center; margin-left: 50px;"></div>
+<div id="sign" style="width:250px; text-align: center; margin-left: 50px; font-weight:bold;"></div>
 <br>
 <div id="horoscope" style="width:250px; text-align: center; margin-left: 50px;"></div>
 <br>
 <div id="chinese zodiac" style="width:250px; text-align: center; margin-left: 50px;"></div>
+
+<div id="test"></div>
 
 </body>
 </html>
