@@ -175,7 +175,7 @@ function checkData(day, month, year, nowDate){
         }else{
             return 2;
         }
-    }else if((MONTHS30DAYS.includes(month)&&day==31)||(month==1 && day>28)){
+    }else if(((MONTHS30DAYS.indexOf(month)>=0)&&day==31)||(month==1 && day>28)){
         return 0;
     }else{
         return true;
