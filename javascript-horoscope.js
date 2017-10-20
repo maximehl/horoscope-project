@@ -109,12 +109,12 @@ function onSubmit(){
     var name = document.getElementById("name").value;
     var nowDate = new Date();
     var birthday = checkBirthday(day, month, nowDate);
-    if (name==""){
+    if (name===""){
         name = "Anonymous";
     }
     var sign;
     var check = checkData(day, month, year, nowDate);
-    if(check==true){
+    if(check===true){
         sign = determineSign(day, month);
         document.getElementById("sign").innerHTML = SIGNS[sign];
         determineHoroscope(sign, name, birthday);
@@ -129,7 +129,7 @@ function determineSign(day, month){
     if(day<=MONTH_CUTOFFS[month]){
         return month;
     }else{
-        if(month==11){
+        if(month===11){
             return 0;
         }else{
             return month + 1;
@@ -151,13 +151,14 @@ function determineImage(sign){
     var signImage = "https://upload.wikimedia.org/wikipedia/commons/" + IMAGES[sign] + ".svg";
     var location = document.getElementById("image");
     location.setAttribute("src", signImage);
+    document.getElementById("image").style.display = "block";
     location.setAttribute("width", "250px");
     location.setAttribute("height", "150px");
 }
 
 function determineChineseZodiac(year){
     var text;
-    if(year%12==9){
+    if(year%12===9){
         text = "You were born in the Chinese year of the " + CHINESE_ZODIAC[year%12] +
             ". That makes you 53% more awesome than the average person not born in the year of the Snake.";
     }else{
@@ -167,7 +168,7 @@ function determineChineseZodiac(year){
 }
 
 function checkData(day, month, year, nowDate){
-    if(document.getElementById("year").value==""){
+    if(document.getElementById("year").value===""){
         return 3;
     }else if((year+10)>=parseInt(nowDate.getFullYear())){
         if(year>parseInt(nowDate.getFullYear())){
@@ -175,7 +176,7 @@ function checkData(day, month, year, nowDate){
         }else{
             return 2;
         }
-    }else if(((MONTHS30DAYS.indexOf(month)>=0)&&day==31)||(month==1 && day>28)){
+    }else if(((MONTHS30DAYS.indexOf(month)>=0)&&day===31)||(month===1 && day>28)){
         return 0;
     }else{
         return true;
@@ -183,7 +184,7 @@ function checkData(day, month, year, nowDate){
 }
 
 function checkBirthday(day, month, nowDate){
-    if(month==nowDate.getMonth() && day==nowDate.getDate()){
+    if(month===nowDate.getMonth() && day===nowDate.getDate()){
         return true;
     }else{
         return false;
@@ -196,7 +197,7 @@ function checkBirthday(day, month, nowDate){
  * or any text from the previous horoscope on the page.
  */
 function clearPage(){
-    document.getElementById("image").innerHTML = "";
+    document.getElementById("image").style.display = "none";
     document.getElementById("sign").innerHTML = "";
     document.getElementById("horoscope").innerHTML = "";
     document.getElementById("chinese zodiac").innerHTML = "";
