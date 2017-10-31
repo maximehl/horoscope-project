@@ -8,7 +8,6 @@ IMAGES = ["7/76/Capricorn", "2/24/Aquarius", "9/95/Pisces", "5/5e/Aries",
     "f/f7/Libra", "e/ea/Scorpio", "8/80/Sagittarius"];
 CHINESE_ZODIAC = ["Monkey", "Rooster", "Dog", "Pig", "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep"];
 MONTH_CUTOFFS = [19, 18, 20, 19, 20, 20, 22, 22, 22, 22, 21, 21];
-MONTHS30DAYS = [3, 5, 8, 10];
 HOROSCOPES = ["What you say may seem obvious to you, but will" +
     " be easily understood by those around you." +
     " Choose your words with greater care today," +
@@ -95,9 +94,7 @@ HOROSCOPES = ["What you say may seem obvious to you, but will" +
     " remain where you are if it doesn’t seem right." +
     " However, make sure to keep safety and security" +
     " in mind."];
-CHECK_RETURNS = ["sorry, your input is not a valid date.",
-    true,
-    "aren't you a little young to be on the internet?",
+CHECK_RETURNS = ["aren't you a little young to be on the internet?",
     "please enter your year of birth.",
     "predicting the future is our job, not yours."];
 
@@ -113,7 +110,7 @@ function onSubmit(){
         name = "Anonymous";
     }
     var sign;
-    var check = checkData(day, month, year, nowDate);
+    var check = checkData(year, nowDate);
     if(check===true){
         sign = determineSign(day, month);
         document.getElementById("sign").innerHTML = SIGNS[sign];
@@ -167,17 +164,15 @@ function determineChineseZodiac(year){
     document.getElementById("chinese zodiac").innerHTML = text;
 }
 
-function checkData(day, month, year, nowDate){
+function checkData(year, nowDate){
     if(document.getElementById("year").value===""){
-        return 3;
+        return 1;
     }else if((year+10)>=parseInt(nowDate.getFullYear())){
         if(year>parseInt(nowDate.getFullYear())){
-            return 4;
-        }else{
             return 2;
+        }else{
+            return 0;
         }
-    }else if(((MONTHS30DAYS.indexOf(month)>=0)&&day===31)||(month===1 && day>28)){
-        return 0;
     }else{
         return true;
     }
@@ -201,4 +196,13 @@ function clearPage(){
     document.getElementById("sign").innerHTML = "";
     document.getElementById("horoscope").innerHTML = "";
     document.getElementById("chinese zodiac").innerHTML = "";
+}
+
+function makeDaysList(month){
+    var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 30, 31];
+    var returnList = "";
+    for(var i = 1; i<=monthDays[month]; i++){
+        returnList += "<option value='" + i + "'>" + i + "</option>";
+    }
+    document.getElementById("day").innerHTML = returnList;
 }
